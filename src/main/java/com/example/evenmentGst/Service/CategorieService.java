@@ -10,6 +10,7 @@ import com.example.evenmentGst.Entities.Evenement;
 import java.util.List;
 
 public interface CategorieService {
+
     List<ResponseCategorie> getAllCategorie();
     void createCategorie(RequestCategorie requestCategorie);
     ResponseCategorie getCategorieById(Long idCate);

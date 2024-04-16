@@ -2,6 +2,7 @@ package com.example.evenmentGst.Controller;
 
 import com.example.evenmentGst.Dto.RequestEvenment;
 import com.example.evenmentGst.Dto.ResponseEvenement;
+import com.example.evenmentGst.Entities.Status;
 import com.example.evenmentGst.Service.EvenementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("api/evenement/evenement")
+@RequestMapping("api/auth/evenements/evenement")
 @RequiredArgsConstructor
 public class EvenementController {
     @Autowired
     private EvenementService evenementService;
+
     @GetMapping("")
     public ResponseEntity<List<ResponseEvenement>> getAllEvenement(){
         List<ResponseEvenement> evenements = evenementService.getAllEvenement();
@@ -32,8 +35,8 @@ public class EvenementController {
         );
     }
     @GetMapping("{id}")
-    public ResponseEntity<ResponseEvenement> getEvenementById (@PathVariable Long idEven){
-        return ResponseEntity.ok(evenementService.getEvenementById(idEven));
+    public ResponseEntity<ResponseEvenement> getEvenementById (@PathVariable Long id){
+        return ResponseEntity.ok(evenementService.getEvenementById(id));
     }
     @PutMapping(value = "{id}")
     public ResponseEntity<Object> updateEvenement(

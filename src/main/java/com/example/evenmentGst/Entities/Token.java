@@ -27,4 +27,6 @@ public class Token {
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
+
+
 }

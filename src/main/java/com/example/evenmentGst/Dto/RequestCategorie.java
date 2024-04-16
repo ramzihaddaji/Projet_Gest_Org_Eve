@@ -13,10 +13,5 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestCategorie {
-    Long idCateg;
     String nom;
-    private Instant createdAt;
-    private Instant updatedAt;
-    Long evenment_id;
-
 }

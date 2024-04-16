@@ -1,6 +1,10 @@
 package com.example.evenmentGst.Entities;
 
 public enum Role {
+    utilisateur,
+    participant,
     client,
-    admin
+    admin,
+    collaborateur,
+    organisateur,
 }

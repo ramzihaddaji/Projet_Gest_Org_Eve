@@ -1,13 +1,9 @@
 package com.example.evenmentGst.ServicesImpl;
 
+import com.example.evenmentGst.Config.EmailAlreadyExistsException;
 import com.example.evenmentGst.Config.JwtService;
-import com.example.evenmentGst.Dto.AuthenticationRequest;
-import com.example.evenmentGst.Dto.AuthenticationResponse;
-import com.example.evenmentGst.Dto.RegisterRequest;
-import com.example.evenmentGst.Entities.Role;
-import com.example.evenmentGst.Entities.Token;
-import com.example.evenmentGst.Entities.TokenType;
-import com.example.evenmentGst.Entities.Utilisateur;
+import com.example.evenmentGst.Dto.*;
+import com.example.evenmentGst.Entities.*;
 import com.example.evenmentGst.Repository.TokenRepository;
 import com.example.evenmentGst.Repository.UtlisateurRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +40,27 @@ public class AuthenticationService {
 //                .token(jwtToken)
 //                .build();
 //    }
+
+//    public List<AuthenticationResponse> getAllUser() {
+//        List<Utilisateur> users =UtlisateurRepository.findAll();
+//        List<AuthenticationResponse> userFormated = new ArrayList<>();
+//        for (Utilisateur utilisateur : users){
+//            AuthenticationResponse usersF=AuthenticationResponse.(categorie);
+//            categorieFormated.add(categorieF);
+//        }
+//
+//        return categorieFormated;
+//    }
+public List<UserResponse> getAllUsers() {
+    List<Utilisateur> users = repository.findAll();
+    List<UserResponse> userFormated = new ArrayList<>();
+        for (Utilisateur utilisateur : users){
+            UserResponse usersF=UserResponse.makeUserss(utilisateur);
+            userFormated.add(usersF);
+        }
+
+        return userFormated;
+    }
 public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -59,21 +80,36 @@ public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
 
     public AuthenticationResponse register(RegisterRequest request) {
+        // Vérifie si l'e-mail existe déjà
+        if (repository.findByEmail(request.getEmail()).isPresent()) {
+            throw new EmailAlreadyExistsException("L'e-mail existe déjà.");
+        }
 
-        var utlisateur = Utilisateur.builder()
+
+        // Créez l'utilisateur
+        var utilisateur = Utilisateur.builder()
                 .nom(request.getNom())
                 .prenom(request.getPrenom())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.client)
+                .ncin(request.getNcin())
+                .date_naiss(request.getDate_naiss())
+                .role(Role.participant)
                 .build();
-        var savedUser = repository.save(utlisateur);
-        var jwtToken = jwtService.generateToken(utlisateur);
+        var savedUser = repository.save(utilisateur);
+
+        // Générer le token JWT
+        var jwtToken = jwtService.generateToken(savedUser);
+
+        // Enregistrez le token pour l'utilisateur
         saveUserToken(savedUser, jwtToken);
+
+        // Retourner la réponse d'authentification avec le token
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
+
 
     private void revokeAllUserTokens(Utilisateur utilisateur){
         var validUserTokens = tokenRepository.findAllValidTokensByUser(utilisateur.getId());

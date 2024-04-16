@@ -1,23 +1,26 @@
 package com.example.evenmentGst.ServicesImpl;
 
 import com.example.evenmentGst.Dto.RequestCategorie;
-import com.example.evenmentGst.Dto.RequestEvenment;
 import com.example.evenmentGst.Dto.ResponseCategorie;
-import com.example.evenmentGst.Dto.ResponseEvenement;
 import com.example.evenmentGst.Entities.Categorie;
 import com.example.evenmentGst.Entities.Evenement;
 import com.example.evenmentGst.Repository.CategorieRepository;
-import com.example.evenmentGst.Repository.RepositoryEvenement;
+import com.example.evenmentGst.Repository.EvenementRepository;
 import com.example.evenmentGst.Service.CategorieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
+@RequiredArgsConstructor
 public class categorieServiceImpl implements CategorieService {
     @Autowired
     private CategorieRepository repositoryCategorie;
+
+
     @Override
     public List<ResponseCategorie> getAllCategorie() {
         List<Categorie> categories =repositoryCategorie.findAll();

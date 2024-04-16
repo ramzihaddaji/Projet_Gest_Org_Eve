@@ -1,7 +1,10 @@
 package com.example.evenmentGst.Controller;
 
+import com.example.evenmentGst.Dto.RequestCategorie;
 import com.example.evenmentGst.Dto.RequestEvenment;
+import com.example.evenmentGst.Dto.ResponseCategorie;
 import com.example.evenmentGst.Dto.ResponseEvenement;
+import com.example.evenmentGst.Service.CategorieService;
 import com.example.evenmentGst.Service.EvenementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,45 +17,45 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/evenement/categorie")
+@RequestMapping("api/auth/evenements/categorie")
 @RequiredArgsConstructor
 public class CategorieController {
     @Autowired
-    private EvenementService evenementService;
+    private CategorieService categorieService;
     @GetMapping("")
-    public ResponseEntity<List<ResponseEvenement>> getAllEvenement(){
-        List<ResponseEvenement> evenements = evenementService.getAllEvenement();
-        return ResponseEntity.ok(evenements);
+    public ResponseEntity<List<ResponseCategorie>> getAllCategorie(){
+        List<ResponseCategorie> categories = categorieService.getAllCategorie();
+        return ResponseEntity.ok(categories);
     }
     @PostMapping("")
-    public ResponseEntity<Object> addEvenement(@RequestBody @Valid RequestEvenment request){
-        evenementService.createEvenement(request);
+    public ResponseEntity<Object> addCategorie(@RequestBody @Valid RequestCategorie request){
+        categorieService.createCategorie(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                Collections.singletonMap("message","save succes")
+                Collections.singletonMap("message","save succes Categorie")
         );
     }
     @GetMapping("{id}")
-    public ResponseEntity<ResponseEvenement> getEvenementById (@PathVariable Long idEven){
-        return ResponseEntity.ok(evenementService.getEvenementById(idEven));
+    public ResponseEntity<ResponseCategorie> getCategorieById (@PathVariable Long id){
+        return ResponseEntity.ok(categorieService.getCategorieById(id));
     }
     @PutMapping(value = "{id}")
-    public ResponseEntity<Object> updateEvenement(
+    public ResponseEntity<Object> updateCategorie(
             @PathVariable(name = "id") Long id,
-            @RequestBody @Valid RequestEvenment request){
-        evenementService.updateEvenement(id,request);
+            @RequestBody @Valid RequestCategorie request){
+        categorieService.updateCategorie(id,request);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-                Collections.singletonMap("message" , "upadate succes")
+                Collections.singletonMap("message" , "upadate succes Categorie")
         );
     }
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Object> deleteEvenement(@PathVariable Long id) {
-        boolean deletedEvenement = evenementService.deleteEvenement(id);
-        if(deletedEvenement){
+    public ResponseEntity<Object> deleteCategorie(@PathVariable Long id) {
+        boolean deletedCategorie = categorieService.deleteCategorie(id);
+        if(deletedCategorie){
             return ResponseEntity.status(HttpStatus.CREATED).body(
-                    Collections.singletonMap("message" , "delete succes")
+                    Collections.singletonMap("message" , "delete succes Categorie")
             );
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                Collections.singletonMap("message" , "evenement existe pas"));
+                Collections.singletonMap("message" , "Categorie existe pas"));
     }
 }
