@@ -39,7 +39,7 @@ public class ChoiceServiceImpl implements ChoiceService {
         Choice choice = Choice.builder()
                 .label(requestChoice.getLabel())
                 .value(requestChoice.getValue())
-                .question(question)
+
                 .build();
         choiceRepository.save(choice);
     }

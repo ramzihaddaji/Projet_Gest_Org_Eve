@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/evenements/auth")
+
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
@@ -26,11 +27,7 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(service.authenticate(request));
     }
-//    @GetMapping("/user")
-//    public ResponseEntity<List<UserResponse>> getAllUsers() {
-//        List<UserResponse> users = service.getAllUsers();
-//        return ResponseEntity.ok(users);
-//    }
+
 @GetMapping("")
 public ResponseEntity<List<UserResponse>> getAllUtilisateur(){
     List<UserResponse> utilisateurs = utilisateurService.getAllUtilisateur();

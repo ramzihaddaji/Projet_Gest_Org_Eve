@@ -29,7 +29,7 @@ public class ResponseChoice {
                 .id(choice.getId())
                 .label(choice.getLabel())
                 .value(choice.getValue())
-                .question(ResponseQuestion.makeQuestion(choice.getQuestion()))
+
                 .createdAt(choice.getCreatedAt())
                 .updatedAt(choice.getUpdatedAt())
                 .build();

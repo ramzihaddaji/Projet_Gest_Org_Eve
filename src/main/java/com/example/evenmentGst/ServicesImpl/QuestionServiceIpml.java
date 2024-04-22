@@ -47,7 +47,7 @@ public class QuestionServiceIpml implements QuestionService {
                 Choice newChoice = new Choice();
                 newChoice.setLabel(choice.getLabel());
                 newChoice.setValue(choice.getValue());
-                newChoice.setQuestion(question);
+
                 choiceRepository.save(newChoice);
             }
         }
@@ -74,7 +74,7 @@ public class QuestionServiceIpml implements QuestionService {
         Question question = Question.builder()
                 .title(requestQuestion.getTitle())
                 .inputType(requestQuestion.getInputType())
-                .categorie(categorie)
+
 //                .Tel(requestParticipant.getTel())
 //                .utilisateur(utilisateur)
                 .build();

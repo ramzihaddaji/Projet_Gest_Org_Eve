@@ -2,13 +2,10 @@ package com.example.evenmentGst.ServicesImpl;
 
 import com.example.evenmentGst.Dto.RequestEvenment;
 import com.example.evenmentGst.Dto.ResponseEvenement;
-import com.example.evenmentGst.Entities.Categorie;
-import com.example.evenmentGst.Entities.Collaborateur;
-import com.example.evenmentGst.Entities.Evenement;
-import com.example.evenmentGst.Entities.Status;
+import com.example.evenmentGst.Entities.*;
 import com.example.evenmentGst.Repository.CategorieRepository;
-import com.example.evenmentGst.Repository.CollaborateurRepository;
 import com.example.evenmentGst.Repository.EvenementRepository;
+import com.example.evenmentGst.Repository.FormRepository;
 import com.example.evenmentGst.Service.EvenementService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +22,11 @@ public class evenementServiceImpl implements EvenementService {
     @Autowired
     private EvenementRepository repositoryEvenement;
 
-    @Autowired
-    private CollaborateurRepository collaborateurRepository;
 
     @Autowired
     private CategorieRepository categorieRepository;
+    @Autowired
+    private FormRepository formRepository ;
 
     @Override
     public void updateEventStatus(Long eventId, Status newStatus) {
@@ -51,18 +48,6 @@ public class evenementServiceImpl implements EvenementService {
         }
     }
 
-    public Evenement addCollaborateurToEvenement(Long evenementId, Long collaborateurId) {
-        Evenement evenement = repositoryEvenement.findById(evenementId)
-                .orElseThrow(() -> new EntityNotFoundException("Evenement not found with id: " + evenementId));
-        Collaborateur collaborateur = collaborateurRepository.findById(collaborateurId)
-                .orElseThrow(() -> new EntityNotFoundException("Collaborateur not found with id: " + collaborateurId));
-
-        evenement.getCollaborateurs().add(collaborateur);
-        collaborateur.getEvenements().add(evenement);
-
-        return repositoryEvenement.save(evenement);
-    }
-
     @Override
     public List<ResponseEvenement> getAllEvenement() {
         List<Evenement> evenements =repositoryEvenement.findAll();
@@ -77,6 +62,8 @@ public class evenementServiceImpl implements EvenementService {
 
     @Override
     public void createEvenement(RequestEvenment requestEvenment) {
+        Categorie categorie = categorieRepository.findById(requestEvenment.getCategorieId()).orElseThrow();
+//        Form form = formRepository.findById(requestEvenment.getFormId()).orElseThrow();
         Evenement evenement = Evenement.builder()
                 .nom(requestEvenment.getNom())
                 .description(requestEvenment.getDescription())
@@ -85,7 +72,8 @@ public class evenementServiceImpl implements EvenementService {
                 .lieu(requestEvenment.getLieu())
                 .status(Status.en_cours)
                 .frais(requestEvenment.getFrais())
-                .categorie(requestEvenment.getCategorieId())
+                .categorie(categorie)
+//                .form(form)
                 .build();
         repositoryEvenement.save(evenement);
     }

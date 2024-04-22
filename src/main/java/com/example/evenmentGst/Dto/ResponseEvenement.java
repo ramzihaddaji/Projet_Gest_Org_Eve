@@ -1,18 +1,15 @@
 package com.example.evenmentGst.Dto;
 
-import com.example.evenmentGst.Entities.Categorie;
 import com.example.evenmentGst.Entities.Evenement;
 import com.example.evenmentGst.Entities.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.Cache;
 
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -27,10 +24,17 @@ public class ResponseEvenement {
     Status status;
     String lieu ;
     String frais ;
+    Long categorieId;
+//    Long form_id;
     private Instant createdAt;
     private Instant updatedAt;
-//    private List<Categorie> ResponseCategories   ;
-    List<ResponseCategorie> categories;
+//    private List<Collaborateur> ResponseCollaborateurs   ;
+//    private List<Collaborateur> collaborateurs;
+    private ResponseCategorie categories;
+//    private ResponseForm form;
+//    private Categorie categories;
+
+
 
     public static ResponseEvenement makeEvenement(Evenement evenement) {
 
@@ -43,9 +47,14 @@ public class ResponseEvenement {
                 .lieu(evenement.getLieu())
                 .status(evenement.getStatus())
                 .frais(evenement.getFrais())
-                .categories((List<ResponseCategorie>) evenement.getCategorie())
                 .createdAt(evenement.getCreatedAt())
                 .updatedAt(evenement.getUpdatedAt())
+                .categories(ResponseCategorie.makeCategorie(evenement.getCategorie()))
+//                .form(ResponseForm.makeForm(evenement.getFormulaire()))
+//                .categories((List<ResponseCategorie>) evenement.getCategorie())
+//                .categories(evenement.getCategorie())
+//                .ResponseCollaborateurs(evenement.getCollaborateurs())
+//                .collaborateurs(evenement.getCollaborateurs())
                 .build();
     }
 }

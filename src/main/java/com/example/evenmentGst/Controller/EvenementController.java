@@ -22,6 +22,21 @@ public class EvenementController {
     @Autowired
     private EvenementService evenementService;
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> updateEventStatus(@PathVariable Long id, @RequestBody Map<String, String> statusMap) {
+        String statusString = statusMap.get("status");
+        Status newStatus = null;
+        try {
+            newStatus = Status.valueOf(statusString.toLowerCase()); // Convert the string to lowercase before converting to enum
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Invalid status value"));
+        }
+
+        evenementService.updateEventStatus(id, newStatus);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("")
     public ResponseEntity<List<ResponseEvenement>> getAllEvenement(){
         List<ResponseEvenement> evenements = evenementService.getAllEvenement();
@@ -58,6 +73,8 @@ public class EvenementController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 Collections.singletonMap("message" , "evenement existe pas"));
     }
+
+
 
 
 }

@@ -1,11 +1,8 @@
 package com.example.evenmentGst.Controller;
 
 import com.example.evenmentGst.Dto.RequestInscription;
-import com.example.evenmentGst.Dto.RequestParticipant;
 import com.example.evenmentGst.Dto.ResponseInscription;
-import com.example.evenmentGst.Dto.ResponseParticipant;
 import com.example.evenmentGst.Service.InscriptionService;
-import com.example.evenmentGst.Service.ParticipantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

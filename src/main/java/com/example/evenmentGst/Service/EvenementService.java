@@ -11,7 +11,7 @@ public interface EvenementService {
 
      void updateEventStatus(Long eventId, Status newStatus) ;
 
-    Evenement addCollaborateurToEvenement(Long evenementId, Long collaborateurId) ;
+
     List<ResponseEvenement> getAllEvenement();
     void createEvenement(RequestEvenment requestEvenment);
     ResponseEvenement getEvenementById(Long id);

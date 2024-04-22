@@ -8,30 +8,27 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "collaborateur")
-public class Collaborateur {
+@Table(name = "commentaire")
+public class Commentaire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nomSociete;
+    private Number note;
+    private String commentaire;
     @CreationTimestamp
     private Instant createdAt;
     @CreationTimestamp
     private Instant updatedAt;
 
-//    @ManyToMany(mappedBy = "collaborateurs")
-//    private List<Evenement> evenements;
 
-    @ManyToMany(mappedBy = "collaborateurs")
-    private Set<Evenement> evenements = new HashSet<>();
-
+    @ManyToOne
+    @JoinColumn(name = "evenement_id")
+    private Evenement evenement;
 }

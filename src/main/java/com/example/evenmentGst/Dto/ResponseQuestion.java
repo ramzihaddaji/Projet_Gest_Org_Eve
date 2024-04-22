@@ -37,11 +37,8 @@ public class ResponseQuestion {
                 .id(question.getId())
                 .title(question.getTitle())
                 .inputType(question.getInputType())
-//                .categorie(ResponseCategorie.makeCategorie(question.getCategorie()))
-                .categorieName(question.getCategorie().getNom())
                 .createdAt(question.getCreatedAt())
                 .updatedAt(question.getUpdatedAt())
-//                .choices(question.getChoices().stream().map(Choice::getLabel).collect(Collectors.toList()))
                 .build();
     }
 }

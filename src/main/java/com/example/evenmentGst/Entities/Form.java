@@ -27,9 +27,9 @@ public class Form {
     @CreationTimestamp
     private Instant updatedAt;
 
-    @OneToOne
-    @JoinColumn(name = "evenement_id", referencedColumnName = "id")
-    private Evenement evenement;
+//    @OneToOne(mappedBy = "formulaire")
+//    private Evenement evenement;
+
 
 
 }

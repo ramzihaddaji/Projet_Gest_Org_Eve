@@ -22,10 +22,20 @@ public class Inscription {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id ;
     LocalDateTime date_inscription;
-    String status ;
+    Status status ;
     @CreationTimestamp
     private Instant createdAt;
     @CreationTimestamp
     private Instant updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "evenement_id")
+    private Evenement evenement;
+
+    @ManyToOne
+    @JoinColumn(name = "utlisateur_id")
+    private Utilisateur utilisateur;
+
+
 
 }

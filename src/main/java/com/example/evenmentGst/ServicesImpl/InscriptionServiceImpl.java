@@ -2,9 +2,10 @@ package com.example.evenmentGst.ServicesImpl;
 
 import com.example.evenmentGst.Dto.RequestInscription;
 import com.example.evenmentGst.Dto.ResponseInscription;
-import com.example.evenmentGst.Entities.Evenement;
-import com.example.evenmentGst.Entities.Inscription;
+import com.example.evenmentGst.Entities.*;
+import com.example.evenmentGst.Repository.EvenementRepository;
 import com.example.evenmentGst.Repository.InscriptionRepository;
+import com.example.evenmentGst.Repository.UtlisateurRepository;
 import com.example.evenmentGst.Service.InscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ import java.util.Optional;
 public class InscriptionServiceImpl implements InscriptionService {
     @Autowired
     private InscriptionRepository inscriptionRepository;
+    @Autowired
+    private EvenementRepository evenementRepository ;
+    @Autowired
+    private UtlisateurRepository utlisateurRepository ;
     @Override
     public List<ResponseInscription> getAllInscription() {
         List<Inscription> inscriptions =inscriptionRepository.findAll();
@@ -32,10 +37,13 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     public void createInscription(RequestInscription requestInscription) {
+        Evenement evenement = evenementRepository.findById(requestInscription.getEvenementId()).orElseThrow();
+        Utilisateur utilisateur = utlisateurRepository.findById(requestInscription.getUtilisateurId()).orElseThrow();
         Inscription inscription = Inscription.builder()
-//                .id(requestInscription.getId())
                 .date_inscription(requestInscription.getDate_inscription())
-                .status(requestInscription.getStatus())
+                .status(Status.en_cours)
+                .evenement(evenement)
+                .utilisateur(utilisateur)
                 .build();
         inscriptionRepository.save(inscription);
 

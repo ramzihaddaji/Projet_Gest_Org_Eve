@@ -1,12 +1,8 @@
 package com.example.evenmentGst.ServicesImpl;
 
-import com.example.evenmentGst.Dto.ResponseParticipant;
 import com.example.evenmentGst.Dto.UserResponse;
 import com.example.evenmentGst.Dto.UtilisateurRequest;
-import com.example.evenmentGst.Entities.Participant;
-import com.example.evenmentGst.Entities.Role;
-import com.example.evenmentGst.Entities.Utilisateur;
-import com.example.evenmentGst.Repository.ParticipantRepository;
+import com.example.evenmentGst.Entities.*;
 import com.example.evenmentGst.Repository.UtlisateurRepository;
 import com.example.evenmentGst.Service.UtilisateurService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +20,25 @@ public class UtlisateurServiceImpl implements UtilisateurService {
     private PasswordEncoder passwordEncoder ;
     @Autowired
     private UtlisateurRepository utlisateurRepository;
+
+    @Override
+    public void updateUserRole(Long userId, Role newRole) {
+        // Retrieve the event by ID
+        Optional<Utilisateur> optionalUtilisateur = utlisateurRepository.findById(userId);
+
+        // Check if the event exists
+        if (optionalUtilisateur.isPresent()) {
+            Utilisateur utilisateur = optionalUtilisateur.get();
+
+            // Update the status
+            utilisateur.setRole(newRole);
+
+            // Save the updated event
+            utlisateurRepository.save(utilisateur);
+        }
+    }
+
+
     @Override
     public List<UserResponse> getAllUtilisateur() {
         List<Utilisateur> utilisateurs =utlisateurRepository.findAll();
@@ -75,10 +90,10 @@ public class UtlisateurServiceImpl implements UtilisateurService {
         if (utilisateurRequest.getEmail() != null) {
             utilisateur.setEmail(utilisateurRequest.getEmail());
         }
-        if (utilisateurRequest.getPassword() != null) {
-            utilisateur.setPassword(passwordEncoder.encode(utilisateurRequest.getPassword()));
-
-        }
+//        if (utilisateurRequest.getPassword() != null) {
+//            utilisateur.setPassword(passwordEncoder.encode(utilisateurRequest.getPassword()));
+//
+//        }
         if (utilisateurRequest.getRole() != null) {
             utilisateur.setRole(utilisateurRequest.getRole());
         }

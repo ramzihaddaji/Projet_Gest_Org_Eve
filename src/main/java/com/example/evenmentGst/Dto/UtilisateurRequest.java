@@ -15,9 +15,8 @@ import java.util.Date;
 public class UtilisateurRequest {
     private String nom ;
     private String prenom ;
-    private String ncin ;
+    private Integer ncin ;
     private Date date_naiss ;
     private String email ;
-    private String password ;
     private Role role ;
 }

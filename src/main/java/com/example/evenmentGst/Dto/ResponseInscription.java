@@ -2,7 +2,7 @@ package com.example.evenmentGst.Dto;
 
 
 import com.example.evenmentGst.Entities.Inscription;
-import com.example.evenmentGst.Entities.Participant;
+import com.example.evenmentGst.Entities.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +18,21 @@ import java.time.LocalDateTime;
 public class ResponseInscription {
     Long id ;
     LocalDateTime date_inscription;
-    String status;
+    Status status;
+    Long evenementId;
+    Long utilisateurId;
     private Instant createdAt;
     private Instant updatedAt;
+    private ResponseEvenement evenement;
+    private UserResponse user;
 
     public static ResponseInscription makeInscription(Inscription inscription){
         return ResponseInscription.builder()
                 .id(inscription.getId())
                 .date_inscription(inscription.getDate_inscription())
+                .status(inscription.getStatus())
+                .evenement(ResponseEvenement.makeEvenement(inscription.getEvenement()))
+                .user(UserResponse.makeUserss(inscription.getUtilisateur()))
                 .createdAt(inscription.getCreatedAt())
                 .updatedAt(inscription.getUpdatedAt())
                 .build();

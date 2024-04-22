@@ -28,8 +28,5 @@ public class Choice {
     private Instant updatedAt;
     // getters and setters
 
-    @ManyToOne
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private Question question;
 
 }

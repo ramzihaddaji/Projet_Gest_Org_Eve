@@ -9,30 +9,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse{
 
-
+    private Long id;
     private String nom ;
     private String prenom ;
-    private String ncin ;
-    private String date_naiss ;
+    private Integer ncin ;
+    private Date date_naiss ;
     private String email ;
-    private String password ;
     private Role role ;
 
     public static UserResponse makeUserss(Utilisateur utilisateur){
 
         return UserResponse.builder()
+                .id(utilisateur.getId())
                 .nom(utilisateur.getNom())
                 .prenom(utilisateur.getPrenom())
-                .ncin(String.valueOf(utilisateur.getNcin()))
-                .date_naiss(String.valueOf(utilisateur.getDate_naiss()))
+                .ncin(utilisateur.getNcin())
+                .date_naiss(utilisateur.getDate_naiss())
                 .email(utilisateur.getEmail())
-//                .password(utilisateur.getPassword())
                 .role(utilisateur.getRole())
                 .build();
 

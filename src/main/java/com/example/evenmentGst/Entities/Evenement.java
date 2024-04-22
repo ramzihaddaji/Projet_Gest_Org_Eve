@@ -34,40 +34,57 @@ public class Evenement {
     String lieu ;
      Status status;
     String frais ;
+
     @CreationTimestamp
     private Instant createdAt;
     @CreationTimestamp
     private Instant updatedAt;
 
-
-    @ManyToMany
-    private List<Participant> participants;
-
-
-//
-//    @ManyToOne
-//    @JoinColumn(name="evenement_id")
-//    private Evenement evenement;
-
     @ManyToOne
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
+    @OneToMany(mappedBy="evenement")
+    private List<Inscription> inscriptions;
+
+//    @OneToOne
+//    @JoinColumn(name = "formulaire_id")
+//    private Form formulaire;
+
+    @OneToMany(mappedBy = "evenement")
+    private List<Commentaire> commentaires;
+
+//
+//    @ManyToMany
+//    private List<Participant> participants;
+//
+//
+////
+////    @ManyToOne
+////    @JoinColumn(name="evenement_id")
+////    private Evenement evenement;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "categorie_id")
+//    private Categorie categorie;
 
 
-
-@ManyToMany(cascade = { CascadeType.ALL })
-@JoinTable(
-        name = "evenement_collaborateur",
-        joinColumns = { @JoinColumn(name = "evenement_id") },
-        inverseJoinColumns = { @JoinColumn(name = "collaborateur_id") }
-)
-private Set<Collaborateur> collaborateurs = new HashSet<>();
-
-
-
-    @OneToOne(mappedBy = "evenement")
-    private Form form;
+//
+//
+//
+//
+//@ManyToMany(cascade = { CascadeType.ALL })
+//@JoinTable(
+//        name = "evenement_collaborateur",
+//        joinColumns = { @JoinColumn(name = "evenement_id") },
+//        inverseJoinColumns = { @JoinColumn(name = "collaborateur_id") }
+//)
+//private Set<Collaborateur> collaborateurs = new HashSet<>();
+//
+//
+//
+//    @OneToOne(mappedBy = "evenement")
+//    private Form form;
 
     //    @ManyToMany
 //    @JoinTable(

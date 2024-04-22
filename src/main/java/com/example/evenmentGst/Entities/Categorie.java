@@ -20,7 +20,7 @@ import java.util.Set;
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long idCateg;
+    Long id;
     String nom;
     @CreationTimestamp
     private Instant createdAt;
@@ -28,34 +28,6 @@ public class Categorie {
     private Instant updatedAt;
 
     @OneToMany(mappedBy="categorie")
-    private List<Question> questions;
+    private Set<Evenement> evenements;
 
-
-    @OneToMany(mappedBy="categorie")
-    private List<Evenement> evenements;
-
-
-
-
-
-
-
-
-
-
-
-//    @OneToMany(mappedBy = "categorie")
-//    private List<Evenement> evenements; // Include the list of events
-//
-//    // Getter and setter for evenements
-//    public List<Evenement> getEvenements() {
-//        return evenements;
-//    }
-//
-//    public void setEvenements(List<Evenement> evenements) {
-//        this.evenements = evenements;
-//    }
-
-    //    @OneToMany(mappedBy = "question")
-//    private Question question;
 }

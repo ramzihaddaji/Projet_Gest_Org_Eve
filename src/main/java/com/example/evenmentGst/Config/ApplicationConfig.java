@@ -33,9 +33,6 @@ import org.springframework.web.filter.CorsFilter;
 public class ApplicationConfig implements WebMvcConfigurer {
     private final UtlisateurRepository repository;
 
-
-
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

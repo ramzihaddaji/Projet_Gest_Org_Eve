@@ -21,41 +21,34 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "utlisateur")
+@Table (name = "utilisateur")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "user_type")
 public class Utilisateur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-
-    @NotNull
     String nom;
-
-    @NotNull
     String prenom;
-
     Integer ncin;
-
-    @NotNull
     @Temporal(TemporalType.DATE)
     Date date_naiss;
-
-    @NotNull
     @Email
     String email;
-
     String password;
 
     @Enumerated(EnumType.STRING)
     private Role role ;
-//    @OneToMany(mappedBy = "utlisateur")
-//    private List<Token> tokens;
+
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Token> tokens;
 
-    @OneToOne
-    @JoinColumn(name = "participant_id", referencedColumnName = "id")
-    private Participant participant;
+    @OneToMany(mappedBy="utilisateur")
+    private List<Inscription> inscriptions;
 
+
+//    @OneToMany(mappedBy = "utilisateur")
+//    private List<Participant> participants;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

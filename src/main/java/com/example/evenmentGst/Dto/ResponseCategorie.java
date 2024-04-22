@@ -18,27 +18,18 @@ import java.util.stream.Collectors;
 public class ResponseCategorie {
     Long idCateg;
     String nom;
-    Long evnementId;
+//    Long evnementId;
     private Instant createdAt;
     private Instant updatedAt;
-    List<ResponseEvenement> evenements;
+//    List<ResponseEvenement> evenements;
 
 
     public static ResponseCategorie makeCategorie(Categorie categorie) {
-        if (categorie == null) {
-            return null; // Handle this case as per your application's requirements
-        }
-
-        List<ResponseEvenement> responseEvenements = categorie.getEvenements().stream()
-                .map(ResponseEvenement::makeEvenement)
-                .collect(Collectors.toList());
-
         return ResponseCategorie.builder()
-                .idCateg(categorie.getIdCateg())
+                .idCateg(categorie.getId())
                 .nom(categorie.getNom())
                 .createdAt(categorie.getCreatedAt())
                 .updatedAt(categorie.getUpdatedAt())
-                .evenements(responseEvenements)
                 .build();
     }
 }

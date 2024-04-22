@@ -26,31 +26,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(),
-//                        request.getPassword()
-//                )
-//        );
-//        var user = repository.findByEmail(request.getEmail()).orElseThrow();
-//        var jwtToken = jwtService.generateToken(user);
-//        saveUserToken(user,jwtToken);
-//        return AuthenticationResponse.builder()
-//                .token(jwtToken)
-//                .build();
-//    }
 
-//    public List<AuthenticationResponse> getAllUser() {
-//        List<Utilisateur> users =UtlisateurRepository.findAll();
-//        List<AuthenticationResponse> userFormated = new ArrayList<>();
-//        for (Utilisateur utilisateur : users){
-//            AuthenticationResponse usersF=AuthenticationResponse.(categorie);
-//            categorieFormated.add(categorieF);
-//        }
-//
-//        return categorieFormated;
-//    }
 public List<UserResponse> getAllUsers() {
     List<Utilisateur> users = repository.findAll();
     List<UserResponse> userFormated = new ArrayList<>();
@@ -74,6 +50,12 @@ public AuthenticationResponse authenticate(AuthenticationRequest request) {
     revokeAllUserTokens(user);
     saveUserToken(user,jwtToken);
     return AuthenticationResponse.builder()
+            .nom(user.getNom())
+            .prenom(user.getPrenom())
+            .email(user.getEmail())
+            .ncin(user.getNcin())
+            .date_naiss(user.getDate_naiss())
+            .role(user.getRole())
             .token(jwtToken)
             .build();
 }
@@ -94,7 +76,7 @@ public AuthenticationResponse authenticate(AuthenticationRequest request) {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .ncin(request.getNcin())
                 .date_naiss(request.getDate_naiss())
-                .role(Role.participant)
+                .role(Role.utilisateur)
                 .build();
         var savedUser = repository.save(utilisateur);
 

@@ -28,11 +28,5 @@ public class Question {
     private Instant updatedAt;
 
 
-    @ManyToOne
-    @JoinColumn(name = "categorie_id")
-    private Categorie categorie;
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Choice> choices;
 
 }

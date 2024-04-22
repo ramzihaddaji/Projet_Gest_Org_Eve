@@ -19,11 +19,12 @@ import java.util.List;
 public class RequestEvenment {
     String nom;
     String description ;
-    LocalDateTime date_debut; // Change the data type to LocalDateTime
+    LocalDateTime date_debut;
     LocalDateTime date_fin;
     String lieu ;
     Status status;
     String frais ;
-    Categorie categorieId; // Liste des identifiants de catégories
+    Long categorieId;
+//    Long FormId;
 
 }

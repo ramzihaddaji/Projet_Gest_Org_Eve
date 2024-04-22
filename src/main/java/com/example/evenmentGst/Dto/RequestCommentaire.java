@@ -1,20 +1,23 @@
 package com.example.evenmentGst.Dto;
 
-import jakarta.validation.constraints.NotNull;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCollaborateur {
-
-    private Long id;
-
-    private String nomSociete;
-
-
+public class RequestCommentaire {
+    Long id ;
+     Number note;
+     String commentaire;
+    Long evenementId;
+    private Instant createdAt;
+    private Instant updatedAt;
 }
