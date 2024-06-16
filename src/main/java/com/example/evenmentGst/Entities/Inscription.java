@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,6 +36,9 @@ public class Inscription {
     @ManyToOne
     @JoinColumn(name = "utlisateur_id")
     private Utilisateur utilisateur;
+
+    @OneToMany(mappedBy = "inscription")
+    private List<Participant> participants;
 
 
 

@@ -47,12 +47,16 @@ public class Evenement {
     @OneToMany(mappedBy="evenement")
     private List<Inscription> inscriptions;
 
-//    @OneToOne
-//    @JoinColumn(name = "formulaire_id")
-//    private Form formulaire;
+    @OneToOne
+    @JoinColumn(name = "facture_id", referencedColumnName = "id")
+    private Facture facture;
 
     @OneToMany(mappedBy = "evenement")
     private List<Commentaire> commentaires;
+
+    @OneToOne
+    @JoinColumn(name = "formulaire_id")
+    private Form formulaire;
 
 //
 //    @ManyToMany

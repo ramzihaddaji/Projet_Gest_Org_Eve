@@ -30,7 +30,11 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("api/auth/**"
-                ,"api/evenements/**")
+                ,"api/evenements/**","/swagger-ui/index.html"
+                ,"/webjars/", "/swagger-ui.html",
+                        "/swagger-resources/", "/v2/api-docs",
+                        "/v3/api-docs/","/v3/api-docs/**","/swagger-ui/*","/swagger-ui/**",
+                        "/swagger-ui/","/api-docs.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

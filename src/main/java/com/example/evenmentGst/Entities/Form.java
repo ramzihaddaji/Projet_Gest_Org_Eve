@@ -20,15 +20,15 @@ public class Form {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private byte[] attachment;
+//    private byte[] attachment;
 //    evnement Evenement ;
     @CreationTimestamp
     private Instant createdAt;
     @CreationTimestamp
     private Instant updatedAt;
 
-//    @OneToOne(mappedBy = "formulaire")
-//    private Evenement evenement;
+    @OneToOne(mappedBy = "formulaire")
+    private Evenement evenement;
 
 
 

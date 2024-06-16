@@ -31,4 +31,10 @@ public class Commentaire {
     @ManyToOne
     @JoinColumn(name = "evenement_id")
     private Evenement evenement;
+
+    @ManyToOne
+    @JoinColumn(name = "participant_id")
+    private Participant participant;
+
+
 }
